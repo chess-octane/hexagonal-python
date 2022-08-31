@@ -42,6 +42,7 @@ class SubmitApplicationUseCase(ISubmitApplication):
             saved_application = self.application_repository.save_application(application)
             return ApplicationResult(saved_application.id, True)
         except Exception as err:
+            # log this error
             print(err)
 
         return ApplicationResult(None, False)
