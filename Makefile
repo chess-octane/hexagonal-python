@@ -5,3 +5,6 @@ runpostgres:
 
 rundjango:
 	python manage.py runserver
+
+runflask:
+	flask --app flaskhex.app run
