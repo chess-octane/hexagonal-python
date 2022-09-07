@@ -2,10 +2,10 @@ from corebusiness.exceptions.CustomerNotFoundExeption import CustomerNotFoundExe
 from corebusiness.ports.secondary.ICustomerRepository import ICustomerRepository
 from corebusiness.entities.Customer import Customer
 
-from ..models import Customer as CustomerModel
+from adapters.primary.django.myapp.models import Customer as CustomerModel
 
 
-class CustomerRepository(ICustomerRepository):
+class CustomerRepositoryDjangoORM(ICustomerRepository):
     def save_customer(self, customer: Customer) ->  Customer:
         customer_instance = CustomerModel.objects.create(
             ssn=customer.ssn,

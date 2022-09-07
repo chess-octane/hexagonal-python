@@ -5,7 +5,7 @@ from corebusiness.entities.Customer import Customer
 from .db import get_connection
 
 
-class CustomerRepository(ICustomerRepository):
+class CustomerRepositoryPsycopg(ICustomerRepository):
     def save_customer(self, customer: Customer) ->  Customer:
         with get_connection() as conn:
             cursor = conn.cursor()

@@ -4,16 +4,17 @@ from flask import Flask, request
 from corebusiness.use_cases.SubmitApplicationUseCase import SubmitApplicationUseCase
 from corebusiness.ports.primary.ISubmitApplication import ApplicationInfo
 
-from .adapters.ApplicationRepository import ApplicationRepository
-from .adapters.CustomerRepository import CustomerRepository
+from adapters.secondary.psycopg.ApplicationRepositoryPsycopg import ApplicationRepositoryPsycopg
+from adapters.secondary.psycopg.CustomerRepositoryPsycopg import CustomerRepositoryPsycopg
 
 app = Flask(__name__)
 
 @app.route("/application", methods=['POST'])
 def submit_application():
+    # TODO: use automatic dependency injection
     submit_app_use_case = SubmitApplicationUseCase(
-        customer_repository=CustomerRepository(),
-        application_repository=ApplicationRepository(),
+        customer_repository=CustomerRepositoryPsycopg(),
+        application_repository=ApplicationRepositoryPsycopg(),
     )
 
     application_info = ApplicationInfo(

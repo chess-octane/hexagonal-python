@@ -10,7 +10,10 @@ rundjangoserver:
 	python manage.py runserver
 
 runflaskserver:
-	flask --app flaskhex.app run
+	flask --app adapters.primary.flask.app run
+
+runfastapiserver:
+	uvicorn adapters.primary.fastapi.app:app --reload --port 9000
 
 runtests:
 	python -m pytest tests

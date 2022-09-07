@@ -2,10 +2,10 @@ from corebusiness.exceptions.ApplicationNotFoundExeption import ApplicationNotFo
 from corebusiness.ports.secondary.IApplicationRepository import IApplicationRepository
 from corebusiness.entities.Application import Application
 
-from ..models import Application as ApplicationModel
+from adapters.primary.django.myapp.models import Application as ApplicationModel
 
 
-class ApplicationRepository(IApplicationRepository):
+class ApplicationRepositoryDjangoORM(IApplicationRepository):
     def save_application(self, application: Application) -> Application:
         application_instance = ApplicationModel.objects.create(
             date=application.date,

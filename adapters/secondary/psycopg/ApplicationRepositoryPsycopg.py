@@ -5,7 +5,7 @@ from corebusiness.entities.Application import Application
 from .db import get_connection
 
 
-class ApplicationRepository(IApplicationRepository):
+class ApplicationRepositoryPsycopg(IApplicationRepository):
     def save_application(self, application: Application) -> Application:
         with get_connection() as conn:
             cursor = conn.cursor()

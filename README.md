@@ -1,14 +1,20 @@
 # Hexagonal Architecture Example in Python
 
-Welcome! Inside this repository you can find a project using 2 different frameworks and a single business logic module. The folder structure is:
+Welcome! Inside this repository you can find a project using 3 different HTTP frameworks and a single business logic module. The folder structure is:
 
-- `corebusiness`: contains the business logic layer
-- `djangohex`: contains one implementation of the ports. Django handles HTTPs requests and also its ORM is used to access the database.
-- `flaskhex`: contains another implementation of the ports. Flask handles HTTPs requests and Psycopg2 is used to access the database.
+- `corebusiness`: contains the business logic layer and the definition of the ports
+- `adapters/`: contains the implementation of the ports
+    - `primary/`: contains the implementation of the primary adapters (HTTP controllers, CLI, etc)
+        - `django`: contains an implementation of the HTTP controller using Django.
+        - `flask`: contains an implementation of the HTTP controller using Flask.
+        - `fastapi`: contains an implementation of the HTTP controller using FastAPI.
+    - `secondary/`: contains the implementation of the secondary adapters (data providers, services, etc)
+        - `django_orm`: contains the implementation of the repositories using Django ORM
+        - `psycopy`: contains the implementation of the repositories using Psycopg
 
 ![](docs/python-hex.png)
 
-In this example, we have 2 different adapters to handle HTTP requests that use the same use case `SubmitApplicationUseCase`. The business logic is the same for both, but the way the HTTP requests are handled and the database access is implemented differs.
+In this example, we have 3 different adapters to handle HTTP requests that use the same use case `SubmitApplicationUseCase`. The business logic is the same for both, but the way the HTTP requests are handled and the database access is implemented differs.
 
 One can add more ways to access the business logic, it could be a Command Line Interface (CLI) for example. It is also possible to add other implementation of the repositories using different libraries.
 
@@ -20,8 +26,9 @@ To run this project, install the requirements using `pip install -r requirements
 2. Migrate database with Django: `make rundjangomigrations`
 3. Django server: `make rundjangoserver`
 4. Flask server: `make runflaskserver`
+5. FastAPI server: `make runfastapiserver`
 
-After that, you should have 2 HTTP servers running, Django at port 8000 and Flask at port 5000.
+After that, you should have 3 HTTP servers running, Django at port 8000, Flask at port 5000 and FastAPI at port 9000.
 
 ## Testing
 
@@ -32,6 +39,9 @@ To test it, you should submit a POST request with the form-data parameters: `cus
 - Django: `http://localhost:8000/app/application`
 - Flask: `http://localhost:5000/application`
 
+For FastAPI, you need to submit a JSON payload with the same parameters to:
+
+- FastAPI: `http://localhost:9000/application`
 
 ## References
 
