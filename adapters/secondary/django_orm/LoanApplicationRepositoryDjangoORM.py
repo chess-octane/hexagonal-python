@@ -1,11 +1,11 @@
 from corebusiness.exceptions.ApplicationNotFoundExeption import ApplicationNotFoundException
-from corebusiness.ports.secondary.IApplicationRepository import IApplicationRepository
+from corebusiness.ports.secondary.ILoanApplicationRepository import ILoanApplicationRepository
 from corebusiness.entities.Application import Application
 
 from adapters.primary.django.myapp.models import Application as ApplicationModel
 
 
-class ApplicationRepositoryDjangoORM(IApplicationRepository):
+class LoanApplicationRepositoryDjangoORM(ILoanApplicationRepository):
     def save_application(self, application: Application) -> Application:
         application_instance = ApplicationModel.objects.create(
             date=application.date,

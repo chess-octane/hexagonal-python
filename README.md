@@ -14,7 +14,7 @@ Welcome! Inside this repository you can find a project using 3 different HTTP fr
 
 ![](docs/python-hex.png)
 
-In this example, we have 3 different adapters to handle HTTP requests that use the same use case `SubmitApplicationUseCase`. The business logic is the same for both, but the way the HTTP requests are handled and the database access is implemented differs.
+In this example, we have 3 different adapters to handle HTTP requests that use the same use case `SubmitLoanApplicationUseCase`. The business logic is the same for both, but the way the HTTP requests are handled and the database access is implemented differs.
 
 One can add more ways to access the business logic, it could be a Command Line Interface (CLI) for example. It is also possible to add other implementation of the repositories using different libraries.
 

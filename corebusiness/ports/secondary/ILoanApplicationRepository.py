@@ -3,7 +3,7 @@ from abc import abstractmethod
 from ...entities.Application import Application
 
 
-class IApplicationRepository(abc.ABC):
+class ILoanApplicationRepository(abc.ABC):
     @abstractmethod
     def save_application(self, application: Application) -> Application:
         raise NotImplementedError()

@@ -1,11 +1,11 @@
 from corebusiness.exceptions.ApplicationNotFoundExeption import ApplicationNotFoundException
-from corebusiness.ports.secondary.IApplicationRepository import IApplicationRepository
+from corebusiness.ports.secondary.ILoanApplicationRepository import ILoanApplicationRepository
 from corebusiness.entities.Application import Application
 
 from .db import get_connection
 
 
-class ApplicationRepositoryPsycopg(IApplicationRepository):
+class LoanApplicationRepositoryPsycopg(ILoanApplicationRepository):
     def save_application(self, application: Application) -> Application:
         with get_connection() as conn:
             cursor = conn.cursor()

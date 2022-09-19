@@ -2,10 +2,10 @@ from datetime import datetime
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from corebusiness.use_cases.SubmitApplicationUseCase import SubmitApplicationUseCase
-from corebusiness.ports.primary.ISubmitApplication import ApplicationInfo
+from corebusiness.use_cases.SubmitLoanApplicationUseCase import SubmitLoanApplicationUseCase
+from corebusiness.ports.primary.ISubmitLoanApplication import LoanApplicationInfo
 
-from adapters.secondary.psycopg.ApplicationRepositoryPsycopg import ApplicationRepositoryPsycopg
+from adapters.secondary.psycopg.LoanApplicationRepositoryPsycopg import LoanApplicationRepositoryPsycopg
 from adapters.secondary.psycopg.CustomerRepositoryPsycopg import CustomerRepositoryPsycopg
 
 class ApplicationBody(BaseModel):
@@ -17,12 +17,12 @@ app = FastAPI()
 @app.post("/application")
 async def submit_application(body: ApplicationBody):
     # TODO: use automatic dependency injection
-    submit_app_use_case = SubmitApplicationUseCase(
+    submit_app_use_case = SubmitLoanApplicationUseCase(
         customer_repository=CustomerRepositoryPsycopg(),
-        application_repository=ApplicationRepositoryPsycopg(),
+        loan_application_repository=LoanApplicationRepositoryPsycopg(),
     )
 
-    application_info = ApplicationInfo(
+    application_info = LoanApplicationInfo(
         customer_ssn=body.customer_ssn,
         customer_name=body.customer_name,
         application_date=datetime.now().isoformat(),

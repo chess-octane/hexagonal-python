@@ -1,7 +1,7 @@
 import abc
 from abc import abstractmethod
 
-class ApplicationInfo:
+class LoanApplicationInfo:
     customer_ssn: str = ""
     customer_name: str = ""
     application_date: str = ""
@@ -12,7 +12,7 @@ class ApplicationInfo:
         self.application_date = application_date
 
 
-class ApplicationResult:
+class LoanApplicationResult:
     application_id: str = ""
     success: bool = False
 
@@ -21,7 +21,7 @@ class ApplicationResult:
         self.success = success
 
 
-class ISubmitApplication(abc.ABC):
+class ISubmitLoanApplication(abc.ABC):
     @abstractmethod
-    def handle(self, application_info: ApplicationInfo) -> ApplicationResult:
+    def handle(self, application_info: LoanApplicationInfo) -> LoanApplicationResult:
         raise NotImplementedError()

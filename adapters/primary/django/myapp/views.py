@@ -2,25 +2,25 @@ from datetime import datetime
 from django.views.generic import View
 from django.http.response import JsonResponse
 
-from corebusiness.use_cases.SubmitApplicationUseCase import SubmitApplicationUseCase
-from corebusiness.ports.primary.ISubmitApplication import ApplicationInfo
+from corebusiness.use_cases.SubmitLoanApplicationUseCase import SubmitLoanApplicationUseCase
+from corebusiness.ports.primary.ISubmitLoanApplication import LoanApplicationInfo
 
-from adapters.secondary.django_orm.ApplicationRepositoryDjangoORM import ApplicationRepositoryDjangoORM
+from adapters.secondary.django_orm.LoanApplicationRepositoryDjangoORM import LoanApplicationRepositoryDjangoORM
 from adapters.secondary.django_orm.CustomerRepositoryDjangoORM import CustomerRepositoryDjangoORM
 
 # Try using Psycopg here as well.
-# from adapters.secondary.psycopg.ApplicationRepositoryPsycopg import ApplicationRepositoryPsycopg
+# from adapters.secondary.psycopg.LoanApplicationRepositoryPsycopg import LoanApplicationRepositoryPsycopg
 # from adapters.secondary.psycopg.CustomerRepositoryPsycopg import CustomerRepositoryPsycopg
 
 class ApplicationView(View):
     def post(self, request, *args, **kwargs):
         # TODO: use automatic dependency injection
-        submit_app_use_case = SubmitApplicationUseCase(
+        submit_app_use_case = SubmitLoanApplicationUseCase(
             customer_repository=CustomerRepositoryDjangoORM(),
-            application_repository=ApplicationRepositoryDjangoORM(),
+            loan_application_repository=LoanApplicationRepositoryDjangoORM(),
         )
 
-        application_info = ApplicationInfo(
+        application_info = LoanApplicationInfo(
             customer_ssn=request.POST['customer_ssn'],
             customer_name=request.POST['customer_name'],
             application_date=datetime.now().isoformat(),
