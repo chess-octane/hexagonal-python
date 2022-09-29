@@ -11,6 +11,7 @@ Welcome! Inside this repository you can find a project using 3 different HTTP fr
     - `secondary/`: contains the implementation of the secondary adapters (data providers, services, etc)
         - `django_orm`: contains the implementation of the repositories using Django ORM
         - `psycopy`: contains the implementation of the repositories using Psycopg
+- `HIGHLYCOUPLED`: contains an example of a project highly coupled with Django framework - things we want to avoid
 
 ![](docs/python-hex.png)
 
