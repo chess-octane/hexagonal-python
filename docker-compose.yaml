@@ -1,0 +1,58 @@
+version: '3.9'
+services:
+  db:
+    image: postgres:14.5-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=octane
+      - POSTGRES_PASSWORD=octane
+      - POSTGRES_DB=octane
+
+  django:
+    build:
+      context: .
+    command: "./scripts/wait-for-db.sh db scripts/rundjango.sh"
+    depends_on:
+      - db
+    volumes:
+      - .:/app/:ro
+    ports:
+      - 8000:8000
+    environment:
+      - POSTGRES_PASSWORD=octane
+
+  flask:
+    build:
+      context: .
+    command: "./scripts/wait-for-db.sh db flask --app adapters.primary.flask.app run --host=0.0.0.0"
+    depends_on:
+      - db
+      - django
+    volumes:
+      - .:/app/:ro
+    ports:
+      - 5000:5000
+    environment:
+      - POSTGRES_PASSWORD=octane
+
+  fastapi:
+    build:
+      context: .
+    command: "./scripts/wait-for-db.sh db uvicorn adapters.primary.fastapi.app:app --reload --host 0.0.0.0 --port 9000"
+    depends_on:
+      - db
+      - django
+    volumes:
+      - .:/app/:ro
+    ports:
+      - 9000:9000
+    environment:
+      - POSTGRES_PASSWORD=octane
+
+  tests:
+    build:
+      context: .
+    command: "python -m pytest tests"
+    volumes:
+      - .:/app/:ro
+    profiles: ["test"]

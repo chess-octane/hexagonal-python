@@ -20,13 +20,7 @@ One can add more ways to access the business logic, it could be a Command Line I
 
 ## Running
 
-To run this project, install the requirements using `pip install -r requirements.txt` and then run:
-
-1. PostgreSQL database: `make runpostgres`
-2. Migrate database with Django: `make rundjangomigrations`
-3. Django server: `make rundjangoserver`
-4. Flask server: `make runflaskserver`
-5. FastAPI server: `make runfastapiserver`
+To run this project you need Docker. Build the images using `docker-compose build` and then run `docker-compose up` to run all services.
 
 After that, you should have 3 HTTP servers running, Django at port 8000, Flask at port 5000 and FastAPI at port 9000.
 
@@ -42,6 +36,10 @@ To test it, you should submit a POST request with the form-data parameters: `cus
 For FastAPI, you need to submit a JSON payload with the same parameters to:
 
 - FastAPI: `http://localhost:9000/application`
+
+### Unit tests
+
+To run unit tests use this command: `docker-compose run tests`
 
 ## References
 
