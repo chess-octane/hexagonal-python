@@ -36,7 +36,7 @@ class SubmitLoanApplicationUseCase(ISubmitLoanApplication):
         try:
             saved_customer = self.customer_repository.get_customer(application_info.customer_ssn)
         except CustomerNotFoundExeption:
-            customer = Customer(None, application_info.applicant_name, application_info.customer_ssn)
+            customer = Customer(None, application_info.customer_name, application_info.customer_ssn)
 
             # make sure the customer information is valid
             if not customer.is_valid():
