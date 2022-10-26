@@ -9,9 +9,9 @@ class ApplicationView(View):
         # 1. get or create the customer
 
         try:
-            saved_customer = Customer.objects.filter(customer_ssn=request.POST["customer_ssn"])
+            saved_customer = Customer.objects.get(ssn=request.POST["customer_ssn"])
         except Customer.DoesNotExist:
-            saved_customer = Customer(customer_name=request.POST["customer_name"], customer_ssn=request.POST["customer_ssn"])
+            saved_customer = Customer(name=request.POST["customer_name"], ssn=request.POST["customer_ssn"])
             try:
                 saved_customer.full_clean()
                 saved_customer.save()
@@ -22,7 +22,7 @@ class ApplicationView(View):
                 })
 
         # 2. save the application
-        application = Application(application_date=datetime.now(), customer=saved_customer)
+        application = Application(date=datetime.now(), customer=saved_customer)
 
         try:
             application.full_clean()
